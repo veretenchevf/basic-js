@@ -21,30 +21,39 @@ if(!Array.isArray(arr)){
 }
 let newArr = arr.slice();
 while(newArr.some(item => typeof(item)==='string')){
-    newArr.forEach(function(item, index){
-        if(typeof(item) === 'string'){
-            switch(item){
-                case '--discard-next':
-                    newArr.splice((index), 2)
-                    break;
-                case '--discard-prev':
-                    if(index === 0){
-                      newArr.shift();
-                    }else{newArr.splice((index -1), 1)}
-                    break;
-                case '--double-next':
-                  if(index != newArr.length-1){
-                    item =  newArr[index + 1];
-                  }else{newArr.splice(index, 1)}
+  newArr.forEach(function(item, index){
+    if(typeof(item) === 'string'){
+        switch(item){
+            case '--discard-next':
+                newArr[index] = '';
+                newArr[index + 1] = '';
                 break;
-                case '--double-prev':
-                    newArr[index] =  newArr[index - 1];
+            case '--discard-prev':
+                if(index === 0){
+                  newArr[index] = '';
+                }else{newArr[index] = '';
+                  newArr[index - 1] = '';}
                 break;
-            }
-      }else if(item == undefined){
-          newArr.splice(index, 1)
-      }
-    });
+            case '--double-next':
+                if(index == newArr.length-1){
+                    newArr.splice(index, 1)
+                }else{newArr[index] =  newArr[index + 1]}
+                break;
+            case '--double-prev':
+              if(index === 0){
+                newArr.splice(index, 1)
+            }else{newArr[index] =  newArr[index - 1];}
+                break;
+        }
+    }else if(item == undefined){
+        newArr.splice(index, 1)
+    }
+});
+for(let i = 0;i<newArr.length;){
+    if(newArr[i] === ''){
+        newArr.splice(i, 1)
+    }else{i++}
+}
     return newArr
 }
 }

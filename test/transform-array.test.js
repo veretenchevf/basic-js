@@ -78,6 +78,7 @@ describe('Transform array', () => {
                     output: [1, 2, 3, 4, 5]
                 },
                 discardDoubled: {
+                    
                     input: [1, 2, 3, '--double-next', 1337, '--discard-prev', 4, 5],
                     output: [1, 2, 3, 1337, 4, 5]
                 }
